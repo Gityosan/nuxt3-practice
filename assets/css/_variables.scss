@@ -1,0 +1,15 @@
+@use 'vuetify/lib/styles/settings/colors' as c;
+$main-color: #003566;
+$sub-color: #abc1d6;
+$accent-color: #fec500;
+$grey-color: #f3f3f4;
+$white: #ffffff;
+$black: #333333;
+$colors: (
+  'main-color': $main-color,
+  'sub-color': $sub-color,
+  'accent-color': $accent-color,
+  'grey-color': $grey-color,
+  'white': $white,
+  'black': $black
+);

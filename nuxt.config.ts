@@ -1,11 +1,23 @@
 import vuetify from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   ssr: false,
+  app: {
+    head: {
+      viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+      charset: 'utf-8',
+      meta: [
+        { name: 'description', content: '' },
+        { name: 'viewport', content: 'width=device-width' },
+        { name: 'format-detection', content: 'telephone=no' },
+        { name: 'robots', content: 'noindex,nofollow' }
+      ]
+    }
+  },
   typescript: {
     shim: false,
     strict: true
   },
-  css: ['vuetify/styles'],
+  css: ['vuetify/styles', '@/assets/css/index.scss'],
   build: {
     transpile: ['vuetify']
   },
@@ -26,5 +38,12 @@ export default defineNuxtConfig({
       }
     }
   },
-  runtimeConfig: {}
+  runtimeConfig: {
+    public: {
+      MICROCMS_API_KEY: process.env.MICROCMS_API_KEY,
+      MICROCMS_API_URL: process.env.MICROCMS_API_URL,
+      GOOGLE_MAPS_JS_API_KEY: process.env.GOOGLE_MAPS_JS_API_KEY,
+      GOOGLE_FORM_URL: process.env.GOOGLE_FORM_URL
+    }
+  }
 })
