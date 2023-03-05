@@ -1,108 +1,73 @@
+<script setup lang="ts">
+import { GoogleMap, Marker, CustomControl } from 'vue3-google-map'
+const config = useRuntimeConfig()
+const googleMap = ref<any>(null)
+const mapZoom = ref<number>(15)
+const mapPosition = ref<{ lat: number; lng: number }>({
+  lat: 35.681158293,
+  lng: 139.766561699
+})
+const markerPosition = ref<{ lat: number; lng: number }>({
+  lat: 35.681158293,
+  lng: 139.766561699
+})
+const options = {
+  style: {
+    width: 'auto',
+    height: '400px'
+  },
+  options: {
+    streetViewControl: false,
+    styles: []
+  }
+}
+const markeroptions = {
+  clickable: false,
+  draggable: true
+}
+const updateMap = () => {
+  mapPosition.value = {
+    lat: googleMap.value.map.center.lat(),
+    lng: googleMap.value.map.center.lng()
+  }
+  mapZoom.value = googleMap.value.map.zoom
+}
+const updateMarker = (e: any) => {
+  markerPosition.value = { lat: e.latLng.lat(), lng: e.latLng.lng() }
+}
+</script>
 <template>
   <v-card flat outlined class="ma-5 pa-5">
     <v-card-title class="font-weight-bold text-h5">
       GoogleMapを表示しよう！
     </v-card-title>
-    <!-- <GmapMap
-      ref="gmap"
-      map-type-id="roadmap"
-      :center="{ lat: lat, lng: lng }"
-      :zoom="zoom"
-      :style="styleMap"
-      :options="mapOptions"
+    <GoogleMap
+      ref="googleMap"
+      :center="mapPosition"
+      :api-key="config.public.GOOGLE_MAPS_JS_API_KEY"
+      :zoom="mapZoom"
+      v-bind="options"
+      @dragend="updateMap()"
+      @zoom_changed="updateMap()"
     >
-      <GmapMarker
-        ref="gmarker"
-        title="あなたの医院"
-        :position="{ lat: markerLat, lng: markerLng }"
-        :clickable="false"
-        :draggable="true"
-        @dragend="updateMarker"
+      <Marker
+        :options="{ position: markerPosition, ...markeroptions }"
+        @dragend="updateMarker($event)"
       />
-    </GmapMap> -->
+      <CustomControl position="LEFT_BOTTOM">
+        <button
+          class="height-40 ma-3 px-4 bg-white cursor-pointer rounded-sm text-h6 text-center d-table-cell"
+          :style="{
+            'box-shadow': 'rgba(0, 0, 0, 0.3) 0px 1px 4px -1px',
+            'vertical-align': 'middle'
+          }"
+        >
+          カスタムコントロール
+        </button>
+      </CustomControl>
+    </GoogleMap>
+    <p class="mt-3">地図の中心座標：{{ mapPosition }}</p>
+    <p>地図の拡大率：{{ mapZoom }}</p>
+    <p>マーカーの座標：{{ markerPosition }}</p>
   </v-card>
 </template>
-<script>
-export default {
-  // data: () => ({
-  //   lat: 35.681158293,
-  //   lng: 139.766561699,
-  //   markerLat: 35.681158293,
-  //   markerLng: 139.766561699,
-  //   zoom: 15,
-  //   // GoogleMapsのメタデータ
-  //   styleMap: {
-  //     width: 'auto',
-  //     height: '400px'
-  //   },
-  //   mapOptions: {
-  //     streetViewControl: false,
-  //     styles: []
-  //   }
-  // }),
-  // mounted() {
-  //   // googleMapを操作時の拡大率と中心座標の更新
-  //   const google = (window.google = window.google ? window.google : {})
-  //   const that = this
-  //   if (this.$refs.gmap !== undefined) {
-  //     this.$refs.gmap.$mapPromise
-  //       .then((map) => {
-  //         google.maps.event.addListener(
-  //           this.$refs.gmap.$mapObject,
-  //           'zoom_changed',
-  //           function () {
-  //             that.zoom = map.zoom
-  //           }
-  //         )
-  //         google.maps.event.addListener(
-  //           this.$refs.gmap.$mapObject,
-  //           'idle',
-  //           function () {
-  //             that.lat = map.getCenter().lat()
-  //             that.lng = map.getCenter().lng()
-  //           }
-  //         )
-  //         // action button 追加
-  //         this.control(google)
-  //       })
-  //       .catch((e) => {
-  //         console.log(e)
-  //       })
-  //   }
-  // },
-  // methods: {
-  //   // GoogleMapのマーカーがドラッグで移動された時の座標更新
-  //   updateMarker(location) {
-  //     this.markerLng = location.latLng.lng()
-  //     this.markerLat = location.latLng.lat()
-  //   },
-  //   control(google) {
-  //     const frame = document.createElement('div')
-  //     const button = document.createElement('div')
-  //     button.style.backgroundColor = '#ffffff'
-  //     button.style.padding = '0px 16px'
-  //     button.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 1px 4px -1px'
-  //     button.style.cursor = 'pointer'
-  //     button.style.height = '40px'
-  //     button.style.borderRadius = '2px'
-  //     button.style.verticalAlign = 'middle'
-  //     button.style.display = 'table-cell'
-  //     button.style.color = '#262626'
-  //     button.style.fontFamily = 'Roboto, Arial, sans-serif'
-  //     button.style.fontSize = '18px'
-  //     button.style.textAlign = 'center'
-  //     button.title = 'カスタムコントロール'
-  //     button.innerHTML = 'カスタムコントロール'
-  //     frame.index = 1
-  //     frame.style.margin = '10px'
-  //     frame.appendChild(button)
-  //     google.maps.event.addDomListener(button, 'click', function () {
-  //       console.log('press button!!')
-  //     })
-  //     this.$refs.gmap.$mapObject.controls[
-  //       google.maps.ControlPosition.LEFT_BOTTOM
-  //     ].push(frame)
-  //   }
-  // }
-}
-</script>

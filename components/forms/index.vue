@@ -6,49 +6,41 @@ const name = ref<string>('')
 const mailaddress = ref<string>('')
 const subject = ref<string>('')
 const microCMSSubmit = async () => {
-  const path = config.public.MICROCMS_API_URL + '/form'
   const { data, error } = await $baseFetch(
-    path,
+    config.public.MICROCMS_API_URL + '/form',
     $options({
-      key: path,
+      key: config.public.MICROCMS_API_URL + '/form',
       method: 'POST',
       headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY },
-      body: JSON.stringify({ name, subject })
+      body: JSON.stringify({ name: name.value, subject: subject.value })
     })
   )
   if (data) alert('送信できました')
   if (error) console.log('microCMSSubmit/Error', error)
 }
 const mailSubmit = async () => {
-  const path =
-    '/api/mailer?name=' +
-    name.value +
-    '&subject=' +
-    subject.value +
-    '&mailaddress=' +
-    mailaddress.value
   const { data, error } = await $baseFetch(
-    path,
+    '/api/nodemailer',
     $options({
-      key: path,
+      key: '/api/nodemailer',
       method: 'POST',
-      headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY }
+      body: JSON.stringify({
+        name: name.value,
+        subject: subject.value,
+        mailaddress: mailaddress.value
+      })
     })
   )
   if (data) alert('送信できました')
   if (error) console.log('mailSubmit/Error', error)
 }
 const googleFormSubmit = async () => {
-  const params = new FormData()
-  params.append('entry.1715882031', name.value)
-  params.append('entry.433075776', subject.value)
   const { data, error } = await $baseFetch(
-    config.public.GOOGLE_FORM_URL,
+    '/api/googleForm',
     $options({
-      key: '/googleform',
+      key: '/api/googleform',
       method: 'POST',
-      headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY },
-      body: params
+      body: JSON.stringify({ name: name.value, subject: subject.value })
     })
   )
   if (data) alert('送信できました')
@@ -110,6 +102,7 @@ const googleFormSubmit = async () => {
         color="primary"
         width="-webkit-fill-available"
         class="mx-5"
+        :disabled="true"
         @click="mailSubmit()"
       >
         <v-icon>mdi-email-fast-outline</v-icon>送信

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
 const { xs, smAndUp } = useDisplay()
-const drawer = ref<boolean>(false)
+const drawer = ref<boolean>(smAndUp.value)
 const pages = [
   {
     title: 'トップ',
@@ -21,13 +21,10 @@ const pages = [
 ]
 </script>
 <template>
-  <v-app class="bg-grey-color">
+  <v-layout class="bg-grey-color">
     <v-app-bar
-      app
-      color="#ffffff"
-      light
       flat
-      dense
+      density="compact"
       style="border-bottom: 1px solid rgb(0 0 0 / 12%)"
     >
       <v-app-bar-nav-icon
@@ -35,51 +32,34 @@ const pages = [
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
       <v-app-bar-title class="font-weight-bold text-h5">
-        Nuxt学習用サイト
+        Nuxt3学習用サイト
       </v-app-bar-title>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
-      app
-      light
+      :rail="smAndUp"
       :permanent="smAndUp"
-      color="#ffffff"
-      height="100%"
-      width="200px"
-      expand-on-hover
+      :expand-on-hover="smAndUp"
+      rail-width="56"
     >
-      <v-list dense nav rounded>
+      <v-list density="compact" nav>
         <v-list-item
           v-for="item in pages"
           :key="item.title"
+          :title="item.title"
+          :prepend-icon="item.icon"
           :to="item.path"
-          nuxt
-          color="#262626"
-          :class="xs ? '' : 'mt-3'"
-        >
-          <v-list-item-icon>
-            <v-icon color="#262626">
-              {{ item.icon }}
-            </v-icon>
-          </v-list-item-icon>
-          <v-list-item-title style="color: #262626" class="font-weight-bold">
-            {{ item.title }}
-          </v-list-item-title>
-        </v-list-item>
+        ></v-list-item>
+        <v-list-item
+          v-if="xs"
+          title="メニューを閉じる"
+          prepend-icon="mdi-backspace-outline"
+          @click="drawer = false"
+        ></v-list-item>
       </v-list>
-      <template #append>
-        <v-list dense nav rounded>
-          <v-list-item v-if="xs" color="#262626" @click.stop="drawer = false">
-            <v-list-item-icon>
-              <v-icon color="#262626">mdi-backspace-outline</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>メニューを閉じる</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </template>
     </v-navigation-drawer>
     <v-main>
       <NuxtPage />
     </v-main>
-  </v-app>
+  </v-layout>
 </template>

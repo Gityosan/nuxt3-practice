@@ -43,7 +43,11 @@ export default defineNuxtConfig({
       MICROCMS_API_KEY: process.env.MICROCMS_API_KEY,
       MICROCMS_API_URL: process.env.MICROCMS_API_URL,
       GOOGLE_MAPS_JS_API_KEY: process.env.GOOGLE_MAPS_JS_API_KEY,
-      GOOGLE_FORM_URL: process.env.GOOGLE_FORM_URL
+      GOOGLE_FORM_URL: process.env.GOOGLE_FORM_URL,
+      MAILSERVER: process.env.MAILSERVER,
+      MAILER_AUTH_USER: process.env.MAILER_AUTH_USER,
+      MAILER_AUTH_PASS: process.env.MAILER_AUTH_PASS,
+      MAILER_FROM_MAILADDRESS: process.env.MAILER_FROM_MAILADDRESS
     }
   }
 })
