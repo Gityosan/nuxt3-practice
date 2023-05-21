@@ -11,8 +11,8 @@ withDefaults(
 )
 </script>
 <template>
-  <v-card class="my-5" flat outlined style="text-decoration: none">
-    <nuxt-link :to="'/blog/' + content.id">
+  <v-card class="my-5" flat>
+    <nuxt-link :to="'/blog/' + content.id" class="text-decoration-none">
       <v-row class="ma-0 pa-5">
         <v-col cols="12" sm="12" md="5" class="ma-0 pa-0">
           <v-img
@@ -24,13 +24,14 @@ withDefaults(
           <v-card-title class="blog-title">{{ content.title }}</v-card-title>
           <div class="d-flex">
             <v-card-text class="meta">
-              <v-icon :size="smAndUp ? '16' : '14'"> mdi-clock-outline </v-icon>
+              <v-icon :size="smAndUp ? '16' : '14'" icon="mdi-clock-outline" />
               {{ new Date(content.createdAt).toLocaleDateString() }}
             </v-card-text>
             <v-card-text class="meta">
-              <v-icon :size="smAndUp ? '16' : '14'">
-                mdi-account-outline
-              </v-icon>
+              <v-icon
+                :size="smAndUp ? '16' : '14'"
+                icon="mdi-account-outline"
+              />
               {{ content.author }}
             </v-card-text>
           </div>

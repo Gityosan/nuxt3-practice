@@ -1,5 +1,5 @@
 import { FetchOptionArgsType, FetchOptionResponseType } from '~/assets/type'
-export default defineNuxtPlugin((nuxtApp: any) => {
+export default defineNuxtPlugin((nuxtApp) => {
   return {
     provide: {
       options: <T>({
@@ -21,11 +21,11 @@ export default defineNuxtPlugin((nuxtApp: any) => {
           ...query,
           method,
           headers,
-          onResponse(v) {
-            onResponse && onResponse(v)
+          async onResponse(v) {
+            onResponse && (await onResponse(v))
           },
-          onResponseError(v) {
-            onResponseError && onResponseError(v)
+          async onResponseError(v) {
+            onResponseError && (await onResponseError(v))
           },
           ...args
         }
@@ -37,7 +37,7 @@ export default defineNuxtPlugin((nuxtApp: any) => {
         const { lazy, watch } = { lazy: true, watch: [], ...options() }
         return await useAsyncData(
           path,
-          () => $fetch<T>(path, nuxtApp.$options(options())),
+          async () => await $fetch<T>(path, nuxtApp.$options(options())),
           {
             lazy,
             watch

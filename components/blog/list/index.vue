@@ -1,18 +1,17 @@
 <script setup lang="ts">
+import { BlogType } from '@/assets/type'
 const config = useRuntimeConfig()
-const { $baseFetch, $options } = useNuxtApp()
-const contents = ref<any[]>([])
-const path = config.public.MICROCMS_API_URL + '/blog'
-const { data, error } = await $baseFetch(
-  path,
-  $options({
-    key: path,
+const { $baseFetch } = useNuxtApp()
+const contents = ref<BlogType[]>([])
+const { data, error } = await $baseFetch<BlogType[]>(
+  config.public.MICROCMS_API_URL + '/blog',
+  () => ({
+    lazy: false,
     headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY }
   })
 )
-// @ts-ignore
-if (data) contents.value = data.contents
-if (error) console.log('microCMS/listBlogs/Error', error)
+if (data.value) contents.value = data.value.contents
+if (error.value) console.log('microCMS/listBlogs/Error', error.value)
 </script>
 <template>
   <div class="frame">
@@ -27,6 +26,7 @@ if (error) console.log('microCMS/listBlogs/Error', error)
 .frame {
   padding: 0 20px;
   margin: 20px 0 0;
+  min-height: 100dvh;
 }
 @media (min-width: 820px) and (max-width: 1160px) {
   .frame {

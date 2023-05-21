@@ -46,8 +46,9 @@ classベースでデザインするためによく使うstyleをクラス化す�
   white-space: nowrap;
 }
 .font-family-main {
-  font-family: Roboto, '游ゴシック体', YuGothic, '游ゴシック Medium', 'Yu Gothic Medium',
-    '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
+  font-family: Roboto, '游ゴシック体', YuGothic, '游ゴシック Medium',
+    'Yu Gothic Medium', '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN',
+    'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
 }
 
 /*
@@ -66,8 +67,9 @@ $transition-time: (
     }
   }
 }
-$cursor: alias, all-scroll, cell, copy, context-menu, crosshair, default, grab, grabbing, help, move,
-  no-drop, not-allowed, progress, wait, pointer, text, vertical-text, zoom-in, zoom-out, unset;
+$cursor: alias, all-scroll, cell, copy, context-menu, crosshair, default, grab,
+  grabbing, help, move, no-drop, not-allowed, progress, wait, pointer, text,
+  vertical-text, zoom-in, zoom-out, unset;
 @each $i in $cursor {
   .cursor-#{$i} {
     cursor: $i !important;
@@ -154,6 +156,9 @@ $line-height: (
   .line-height-#{$i} {
     line-height: $i * 1px !important;
   }
+  .font-size-#{$i} {
+    font-size: $i * 1px !important;
+  }
   .w-#{$i} {
     width: $i * 1% !important;
   }
@@ -186,6 +191,14 @@ $line-height: (
   .bottom-n#{$i} {
     bottom: $i * -1px;
   }
+  .border-radius-#{$i} {
+    border-radius: $i * 1px !important;
+  }
+  .letter-spacing-#{$i} {
+    letter-spacing: $i * 0.1px !important;
+  }
+}
+@for $i from 0 through 300 {
   .height-#{$i} {
     height: $i * 1px !important;
   }
@@ -203,11 +216,5 @@ $line-height: (
   }
   .max-width-#{$i} {
     max-width: $i * 1px !important;
-  }
-  .border-radius-#{$i} {
-    border-radius: $i * 1px !important;
-  }
-  .letter-spacing-#{$i} {
-    letter-spacing: $i * 0.1px !important;
   }
 }

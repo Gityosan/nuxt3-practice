@@ -1,6 +1,7 @@
 import vuetify from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   ssr: false,
+
   app: {
     head: {
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
@@ -13,14 +14,18 @@ export default defineNuxtConfig({
       ]
     }
   },
+
   typescript: {
     shim: false,
     strict: true
   },
+
   css: ['vuetify/styles', '@/assets/css/index.scss'],
+
   build: {
     transpile: ['vuetify']
   },
+
   modules: [
     (options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
@@ -28,6 +33,7 @@ export default defineNuxtConfig({
       })
     }
   ],
+
   vite: {
     define: {
       'process.env.DEBUG': false
@@ -38,6 +44,7 @@ export default defineNuxtConfig({
       }
     }
   },
+
   runtimeConfig: {
     public: {
       MICROCMS_API_KEY: process.env.MICROCMS_API_KEY,
@@ -49,5 +56,9 @@ export default defineNuxtConfig({
       MAILER_AUTH_PASS: process.env.MAILER_AUTH_PASS,
       MAILER_FROM_MAILADDRESS: process.env.MAILER_FROM_MAILADDRESS
     }
+  },
+
+  devtools: {
+    enabled: true
   }
 })

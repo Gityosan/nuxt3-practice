@@ -1,50 +1,40 @@
 <script setup lang="ts">
-import { validation } from '@/assets/validation'
-const { $baseFetch, $options } = useNuxtApp()
+import { validation as v } from '@/assets/validation'
+const { $baseFetch } = useNuxtApp()
 const config = useRuntimeConfig()
 const name = ref<string>('')
 const mailaddress = ref<string>('')
 const subject = ref<string>('')
 const microCMSSubmit = async () => {
-  const { data, error } = await $baseFetch(
-    config.public.MICROCMS_API_URL + '/form',
-    $options({
-      key: config.public.MICROCMS_API_URL + '/form',
-      method: 'POST',
-      headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY },
-      body: JSON.stringify({ name: name.value, subject: subject.value })
-    })
-  )
-  if (data) alert('送信できました')
-  if (error) console.log('microCMSSubmit/Error', error)
+  await $baseFetch(config.public.MICROCMS_API_URL + '/form', () => ({
+    method: 'POST',
+    headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY },
+    body: JSON.stringify({ name: name.value, subject: subject.value }),
+    onResponse: () => alert('送信できました'),
+    onResponseError: ({ response }) =>
+      console.log('microCMSSubmit/Error', response)
+  }))
 }
 const mailSubmit = async () => {
-  const { data, error } = await $baseFetch(
-    '/api/nodemailer',
-    $options({
-      key: '/api/nodemailer',
-      method: 'POST',
-      body: JSON.stringify({
-        name: name.value,
-        subject: subject.value,
-        mailaddress: mailaddress.value
-      })
-    })
-  )
-  if (data) alert('送信できました')
-  if (error) console.log('mailSubmit/Error', error)
+  await $baseFetch('/api/nodemailer', () => ({
+    method: 'POST',
+    body: JSON.stringify({
+      name: name.value,
+      subject: subject.value,
+      mailaddress: mailaddress.value
+    }),
+    onResponse: () => alert('送信できました'),
+    onResponseError: ({ response }) => console.log('mailSubmit/Error', response)
+  }))
 }
 const googleFormSubmit = async () => {
-  const { data, error } = await $baseFetch(
-    '/api/googleForm',
-    $options({
-      key: '/api/googleform',
-      method: 'POST',
-      body: JSON.stringify({ name: name.value, subject: subject.value })
-    })
-  )
-  if (data) alert('送信できました')
-  if (error) console.log('googleFormSubmit/Error', error)
+  await $baseFetch('/api/googleForm', () => ({
+    method: 'POST',
+    body: JSON.stringify({ name: name.value, subject: subject.value }),
+    onResponse: () => alert('送信できました'),
+    onResponseError: ({ response }) =>
+      console.log('googleFormSubmit/Error', response)
+  }))
 }
 </script>
 <template>
@@ -58,7 +48,7 @@ const googleFormSubmit = async () => {
         <v-text-field
           v-model.trim.lazy="name"
           dense
-          :rules="[validation.required, validation.maxString(30)]"
+          :rules="[v.required, v.maxString(30)]"
           class="px-5"
         ></v-text-field>
       </v-card-title>
@@ -67,7 +57,7 @@ const googleFormSubmit = async () => {
         <v-text-field
           v-model.trim.lazy="mailaddress"
           dense
-          :rules="[validation.required, validation.maxString(30)]"
+          :rules="[v.required, v.maxString(30)]"
           class="px-5"
         ></v-text-field>
       </v-card-title>
@@ -76,7 +66,7 @@ const googleFormSubmit = async () => {
         <v-text-field
           v-model.trim.lazy="subject"
           dense
-          :rules="[validation.required, validation.maxString(30)]"
+          :rules="[v.required, v.maxString(30)]"
           class="px-5"
         ></v-text-field>
       </v-card-title>

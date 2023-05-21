@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
+import { BlogType } from '@/assets/type'
 const { smAndUp } = useDisplay()
-const { $baseFetch, $options } = useNuxtApp()
+const { $baseFetch } = useNuxtApp()
 const config = useRuntimeConfig()
 const { params } = useRoute()
-const content = ref<any>(() => ({}))
-const path = config.public.MICROCMS_API_URL + '/blog/' + params.id
-const { data, error } = await $baseFetch(
-  path,
-  $options({
-    key: path,
+const content = ref<BlogType>({} as BlogType)
+const { data, error } = await $baseFetch<BlogType>(
+  config.public.MICROCMS_API_URL + '/blog/' + params.id,
+  () => ({
+    lazy: false,
     headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY }
   })
 )
-// @ts-ignore
-if (data) content.value = data
-if (error) console.log('microCMS/getBlog/Error', error)
+if (data.value) content.value = data.value
+if (error.value) console.log('microCMS/getBlog/Error', error.value)
 </script>
 <template>
   <div class="frame">
@@ -41,6 +40,7 @@ if (error) console.log('microCMS/getBlog/Error', error)
 .frame {
   padding: 0 20px;
   margin: 20px 0 0;
+  min-height: 100dvh;
 
   .thumbnail {
     width: 100%;
