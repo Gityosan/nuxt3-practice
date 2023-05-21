@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { validation as v } from '@/assets/validation'
-import { TodoType } from '@/assets/type'
+import { TodoType, MicroCMSResponseType } from '@/assets/type'
 const { $baseFetch } = useNuxtApp()
 const todo = ref<string>('')
 const todos = ref<TodoType[]>([])
@@ -33,15 +33,14 @@ const updateTodo = async (item: TodoType) => {
   if (error.value) console.log('microCMS/updateTodo/Error', error.value)
 }
 const readTodo = async () => {
-  const { data, error } = await $baseFetch<TodoType[]>(
+  const { data, error } = await $baseFetch<MicroCMSResponseType<TodoType[]>>(
     config.public.MICROCMS_API_URL + '/todo',
     () => ({
       lazy: false,
       headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY }
     })
   )
-  console.log(data.value, error.value)
-  if (data.value) todos.value = data.value.contents
+  if (data.value?.contents) todos.value = data.value.contents
   if (error.value) console.log('microCMS/readTodo/Error', error.value)
   todos.value.forEach((v) => (v.editable = false))
 }

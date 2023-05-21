@@ -1,5 +1,12 @@
 import { AsyncDataOptions } from 'nuxt/app'
 import { NitroFetchOptions } from 'nitropack'
+export type MicroCMSResponseType<T> = {
+  contents?: T
+  content?: T
+  totalCount: number
+  offset: number
+  limit: number
+}
 export type BlogType = {
   id: string
   title: string

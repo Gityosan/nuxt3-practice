@@ -5,8 +5,6 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div>
-    <Todo id="gsap" />
-    <Googlemap id="gsap" />
-  </div>
+  <Todo id="gsap" />
+  <Googlemap id="gsap" />
 </template>
