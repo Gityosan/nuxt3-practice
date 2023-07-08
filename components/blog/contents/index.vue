@@ -9,5 +9,5 @@ withDefaults(
 )
 </script>
 <template>
-  <div>{{ content }}</div>
+  <div class="ProseMirror" v-html="$reverseSanitize(content)"></div>
 </template>

@@ -15,10 +15,7 @@ withDefaults(
     <nuxt-link :to="'/blog/' + content.id" class="text-decoration-none">
       <v-row class="ma-0 pa-5">
         <v-col cols="12" sm="12" md="5" class="ma-0 pa-0">
-          <v-img
-            :src="content.thumbnail.url || 'day_flower.png'"
-            class="thumbnail"
-          />
+          <v-img :src="content.thumbnail.url || 'day_flower.png'" class="thumbnail" />
         </v-col>
         <v-col cols="12" sm="12" md="7" class="pa-0 pl-md-10">
           <v-card-title class="blog-title">{{ content.title }}</v-card-title>
@@ -28,10 +25,7 @@ withDefaults(
               {{ new Date(content.createdAt).toLocaleDateString() }}
             </v-card-text>
             <v-card-text class="meta">
-              <v-icon
-                :size="smAndUp ? '16' : '14'"
-                icon="mdi-account-outline"
-              />
+              <v-icon :size="smAndUp ? '16' : '14'" icon="mdi-account-outline" />
               {{ content.author }}
             </v-card-text>
           </div>
@@ -65,7 +59,5 @@ withDefaults(
   .meta {
     font-size: 16px;
   }
-}
-@media (min-width: 960px) {
 }
 </style>

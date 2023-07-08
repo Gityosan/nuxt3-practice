@@ -14,32 +14,7 @@ if (data.value?.contents) contents.value = data.value.contents
 if (error.value) console.log('microCMS/listBlogs/Error', error.value)
 </script>
 <template>
-  <div class="frame">
-    <BlogListItem
-      v-for="content in contents"
-      :key="content.title"
-      :content="content"
-    />
+  <div class="d-flex flex-column flex-sm-row pa-5">
+    <BlogListItem v-for="content in contents" :key="content.title" :content="content" />
   </div>
 </template>
-<style lang="scss" scoped>
-.frame {
-  padding: 0 20px;
-  margin: 20px 0 0;
-  min-height: 100dvh;
-}
-@media (min-width: 820px) and (max-width: 1160px) {
-  .frame {
-    width: 740px;
-    margin: 20px auto 0;
-  }
-}
-@media (min-width: 1160px) {
-  .frame {
-    display: flex;
-    justify-content: space-between;
-    width: 1104px;
-    margin: 20px auto 0;
-  }
-}
-</style>
