@@ -2,18 +2,16 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    es2021: true,
-    node: true
+    node: true,
+    es2022: true
   },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:vue/vue3-recommended',
-    'plugin:nuxt/recommended',
     '@nuxtjs/eslint-config-typescript',
     'prettier'
   ],
-  plugins: [],
   rules: {
     // global settings
     semi: [2, 'never'],
@@ -33,7 +31,13 @@ module.exports = {
     'vue/no-useless-template-attributes': 0,
     'vue/prop-name-casing': 0,
     'vue/no-multiple-template-root': 0,
-    'vue/valid-attribute-name': 0
+    'vue/valid-attribute-name': 0,
+    'vue/valid-v-slot': [
+      'error',
+      {
+        allowModifiers: true
+      }
+    ]
     // nuxt settings
   }
 }
