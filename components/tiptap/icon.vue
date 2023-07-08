@@ -24,9 +24,13 @@ const emit = defineEmits<{
   (e: 'update:link', value: string): void
 }>()
 const open = ref<boolean>(false)
-const onInput = (event:Event) => {
+const onInput = (event: Event) => {
   const f = (event.target as HTMLInputElement)?.files
-  if(f && props.func) props.func(f[0])
+  if (!f) return
+  const megabyte = 5
+  const file = f[0]
+  if (file.size >= megabyte * 1000 * 1000) alert(`アップロードできるサイズは${megabyte}MBまでです`)
+  else if (props.func) props.func(file)
 }
 const saveItem = () => {
   open.value = false
@@ -145,9 +149,9 @@ const unsetLink = () => {
         </div>
       </div>
     </v-menu>
-    <label v-else-if="icon === 'mdi-image'" >
+    <label v-else-if="icon === 'mdi-image'">
       <atom-button-icon :title="title" :icon="icon" :disabled="disabled()" />
-      <input type="file" class="d-none" @input="onInput($event)"/>
+      <input type="file" class="d-none" @input="onInput($event)" />
     </label>
     <atom-button-icon
       v-else
