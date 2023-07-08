@@ -24,7 +24,7 @@
 
 # Upgrade commands
 
-`yarn upgrade nuxt vuetify vite-plugin-vuetify sass @mdi/font typescript @typescript-eslint/eslint-plugin @typescript-eslint/parser @nuxtjs/eslint-config-typescript @types/node eslint eslint-config-prettier eslint-plugin-nuxt prettier stylelint stylelint-config-recess-order stylelint-config-standard-scss postcss-html vue3-google-map gsap nodemailer --latest`
+`yarn upgrade nuxt vuetify vite-plugin-vuetify sass @mdi/font typescript @typescript-eslint/eslint-plugin @typescript-eslint/parser @nuxtjs/eslint-config-typescript @types/node eslint eslint-config-prettier eslint-plugin-nuxt prettier stylelint stylelint-config-recess-order stylelint-config-standard-scss postcss-html vue3-google-map gsap nodemailer @tiptap/core @tiptap/extension-color @tiptap/extension-highlight @tiptap/extension-image @tiptap/extension-link @tiptap/extension-task-item @tiptap/extension-task-list @tiptap/extension-text-align @tiptap/extension-text-style @tiptap/extension-typography @tiptap/extension-underline @tiptap/extension-youtube @tiptap/pm @tiptap/starter-kit @tiptap/vue-3 --latest`
 
 # 改善余地(皆さんやってみてください)
 
