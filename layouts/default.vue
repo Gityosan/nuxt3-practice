@@ -26,7 +26,7 @@ const pages = [
 ]
 </script>
 <template>
-  <v-layout class="bg-grey-color">
+  <v-layout class="bg-grey-lighten-4">
     <v-app-bar
       flat
       density="compact"
@@ -63,7 +63,7 @@ const pages = [
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-main>
+    <v-main :style="{minHeight:'100dvh'}">
       <NuxtPage />
     </v-main>
   </v-layout>
