@@ -8,47 +8,9 @@ classベースでデザインするためによく使うstyleをクラス化す�
 /*
 単一機能を表す責務を負うcss class
 */
-.designed-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: transparent auto;
-  &::-webkit-scrollbar {
-    width: 0px;
-  }
-  @media screen and (min-width: 960px) {
-    &::-webkit-scrollbar {
-      width: 12px;
-    }
-  }
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #c0c0c0;
-    border-radius: 9999px;
-    border: 2px solid transparent;
-    box-sizing: border-box;
-    background-clip: content-box;
-    &:hover {
-      // background-color: var.$grey-darken-2;
-    }
-  }
-}
-.scrollbar-hidden {
-  scrollbar-width: none; /*Firefox対応のスクロールバー非表示コード*/
-  -ms-overflow-style: none; /*Internet Explore対応のスクロールバー非表示コード*/
-  &::-webkit-scrollbar {
-    display: none; /*Google Chrome、Safari、Microsoft Edge対応のスクロールバー非表示コード*/
-  }
-}
-.one-line-reader {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
 .font-family-main {
-  font-family: Roboto, '游ゴシック体', YuGothic, '游ゴシック Medium',
-    'Yu Gothic Medium', '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN',
-    'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
+  font-family: Roboto, '游ゴシック体', YuGothic, '游ゴシック Medium', 'Yu Gothic Medium',
+    '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
 }
 
 /*
@@ -67,9 +29,8 @@ $transition-time: (
     }
   }
 }
-$cursor: alias, all-scroll, cell, copy, context-menu, crosshair, default, grab,
-  grabbing, help, move, no-drop, not-allowed, progress, wait, pointer, text,
-  vertical-text, zoom-in, zoom-out, unset;
+$cursor: alias, all-scroll, cell, copy, context-menu, crosshair, default, grab, grabbing, help, move,
+  no-drop, not-allowed, progress, wait, pointer, text, vertical-text, zoom-in, zoom-out, unset;
 @each $i in $cursor {
   .cursor-#{$i} {
     cursor: $i !important;
@@ -127,7 +88,24 @@ $line-height: (
     line-height: $v !important;
   }
 }
-
+$border-style: none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset;
+@each $i in $border-style {
+  .border-#{$i} {
+    border-style: $i;
+  }
+  .border-top-#{$i} {
+    border-top-style: $i;
+  }
+  .border-right-#{$i} {
+    border-right-style: $i;
+  }
+  .border-left-#{$i} {
+    border-left-style: $i;
+  }
+  .border-bottom-#{$i} {
+    border-bottom-style: $i;
+  }
+}
 /*
 数量系の単一プロパティを表す責務を負うclass
 */
@@ -155,9 +133,6 @@ $line-height: (
 @for $i from 0 through 100 {
   .line-height-#{$i} {
     line-height: $i * 1px !important;
-  }
-  .font-size-#{$i} {
-    font-size: $i * 1px !important;
   }
   .w-#{$i} {
     width: $i * 1% !important;

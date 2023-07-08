@@ -38,8 +38,8 @@ const googleFormSubmit = async () => {
 }
 </script>
 <template>
-  <div>
-    <v-card flat outlined class="ma-5 pa-5">
+  <div class="pa-5">
+    <v-card flat outlined class="mb-5 pa-5">
       <v-card-title class="font-weight-bold text-h5">
         Form機能を実装しよう！
       </v-card-title>
@@ -71,7 +71,7 @@ const googleFormSubmit = async () => {
         ></v-text-field>
       </v-card-title>
     </v-card>
-    <v-card flat outlined class="ma-5 pa-5">
+    <v-card flat outlined class="mb-5 pa-5">
       <v-card-title class="font-weight-bold text-h5">
         １：Microcmsに送信しよう！
       </v-card-title>
@@ -84,7 +84,7 @@ const googleFormSubmit = async () => {
         <v-icon>mdi-email-fast-outline</v-icon>送信
       </v-btn>
     </v-card>
-    <v-card flat outlined class="ma-5 pa-5">
+    <v-card flat outlined class="mb-5 pa-5">
       <v-card-title class="font-weight-bold text-h5">
         ２：メールアドレスに送信しよう！
       </v-card-title>
@@ -98,7 +98,7 @@ const googleFormSubmit = async () => {
         <v-icon>mdi-email-fast-outline</v-icon>送信
       </v-btn>
     </v-card>
-    <v-card flat outlined class="ma-5 pa-5">
+    <v-card flat outlined class="mb-5 pa-5">
       <v-card-title class="font-weight-bold text-h5">
         ３：Google Formに送信しよう！
       </v-card-title>

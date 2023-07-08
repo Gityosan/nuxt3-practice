@@ -17,6 +17,11 @@ const pages = [
     title: 'ブログ',
     icon: 'mdi-post-outline',
     path: '/blog'
+  },
+  {
+    title: 'エディター',
+    icon: 'mdi-fountain-pen-tip',
+    path: '/tiptap'
   }
 ]
 </script>

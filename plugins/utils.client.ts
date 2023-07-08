@@ -1,5 +1,5 @@
 import { FetchOptionArgsType, FetchOptionResponseType } from '~/assets/type'
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin((nuxtApp:any) => {
   return {
     provide: {
       options: <T>({
@@ -43,6 +43,14 @@ export default defineNuxtPlugin((nuxtApp) => {
             watch
           }
         )
+      },
+      reverseSanitize: (str?: string | null): string => {
+        if (!str) return ''
+        return String(str)
+          .replace(/&amp;/g, '&')
+          .replace(/&quot;/g, '"')
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
       }
     }
   }
