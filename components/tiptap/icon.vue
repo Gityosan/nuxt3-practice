@@ -8,6 +8,7 @@ type TiptapButtonType = {
   link?: string
   linkText?: string
   linkTarget?: boolean
+  isLink?: boolean
   color?: string
 }
 const props = withDefaults(defineProps<TiptapButtonType>(), {
@@ -18,20 +19,14 @@ const props = withDefaults(defineProps<TiptapButtonType>(), {
   link: '',
   linkText: '',
   linkTarget: false,
+  isLink: false,
   color: '#000000'
 })
 const emit = defineEmits<{
   (e: 'update:link', value: string): void
 }>()
+const file = ref<any>()
 const open = ref<boolean>(false)
-const onInput = (event: Event) => {
-  const f = (event.target as HTMLInputElement)?.files
-  if (!f) return
-  const megabyte = 5
-  const file = f[0]
-  if (file.size >= megabyte * 1000 * 1000) alert(`アップロードできるサイズは${megabyte}MBまでです`)
-  else if (props.func) props.func(file)
-}
 const saveItem = () => {
   open.value = false
   props.func && props.func()
@@ -75,17 +70,7 @@ const unsetLink = () => {
           :model-value="color"
           @update:model-value="$emit('update:color', $event)"
         />
-        <atom-button
-          text="保存"
-          text-class="text-caption"
-          class="my-2 w-100"
-          @click="
-            () => {
-              open = false
-              func && func()
-            }
-          "
-        />
+        <atom-button text="保存" text-class="text-caption" class="my-2 w-100" @click="saveItem()" />
       </div>
     </v-menu>
     <v-menu v-else-if="icon === 'mdi-link'" v-model="open" :close-on-content-click="false">
@@ -93,17 +78,15 @@ const unsetLink = () => {
         <atom-button-icon :title="title" :icon="icon" :disabled="disabled()" :props="menu" />
       </template>
       <div class="bg-white rounded border-solid border-width-1 border-black min-width-300 pa-4">
-        <template v-if="link">
-          <atom-text text="テキスト" line-height="line-height-lg" class="mb-2" />
-          <v-text-field
-            :model-value="linkText"
-            variant="outlined"
-            density="compact"
-            hide-details
-            class="mb-2"
-            @update:model-value="$emit('update:link-text', $event)"
-          />
-        </template>
+        <atom-text text="テキスト" line-height="line-height-lg" class="mb-2" />
+        <v-text-field
+          :model-value="linkText"
+          variant="outlined"
+          density="compact"
+          hide-details
+          class="mb-2"
+          @update:model-value="$emit('update:link-text', $event)"
+        />
         <atom-text text="リンク" line-height="line-height-lg" class="mb-2" />
         <v-text-field
           :model-value="link"
@@ -132,13 +115,13 @@ const unsetLink = () => {
             @click="saveItem()"
           >
             <atom-text
-              :text="link ? '更新' : '保存'"
+              :text="isLink ? '更新' : '保存'"
               color="text-main-color"
               line-height="line-height-lg"
             />
           </v-btn>
           <v-btn
-            v-if="link"
+            v-if="isLink"
             class="height-40 px-4 py-2 transition-short-ease text-red"
             :ripple="false"
             variant="outlined"
@@ -149,10 +132,19 @@ const unsetLink = () => {
         </div>
       </div>
     </v-menu>
-    <label v-else-if="icon === 'mdi-image'">
-      <atom-button-icon :title="title" :icon="icon" :disabled="disabled()" />
-      <input type="file" class="d-none" @input="onInput($event)" />
-    </label>
+    <v-menu v-else-if="icon === 'mdi-image'">
+      <template #activator="{ props: menu }">
+        <atom-button-icon :title="title" :icon="icon" :disabled="disabled()" :props="menu" />
+      </template>
+      <div class="bg-white rounded border-solid border-width-1 border-black width-300 pa-4">
+        <div class="d-flex">
+          <atom-text text="画像をアップロード" line-height="line-height-40" />
+          <v-spacer />
+          <atom-button text="挿入" @click="func && func(file.file)" />
+        </div>
+        <atom-input-file v-model="file" />
+      </div>
+    </v-menu>
     <atom-button-icon
       v-else
       :title="title"
