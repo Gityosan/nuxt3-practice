@@ -25,8 +25,15 @@ const props = withDefaults(defineProps<TiptapButtonType>(), {
 const emit = defineEmits<{
   (e: 'update:link', value: string): void
 }>()
-const file = ref<any>()
 const open = ref<boolean>(false)
+const onInput = (event: Event) => {
+  const f = (event.target as HTMLInputElement)?.files
+  if (!f) return
+  const megabyte = 5
+  const file = f[0]
+  if (file.size >= megabyte * 1000 * 1000) alert(`アップロードできるサイズは${megabyte}MBまでです`)
+  else if (props.func) props.func(file)
+}
 const saveItem = () => {
   open.value = false
   props.func && props.func()
@@ -132,19 +139,10 @@ const unsetLink = () => {
         </div>
       </div>
     </v-menu>
-    <v-menu v-else-if="icon === 'mdi-image'">
-      <template #activator="{ props: menu }">
-        <atom-button-icon :title="title" :icon="icon" :disabled="disabled()" :props="menu" />
-      </template>
-      <div class="bg-white rounded border-solid border-width-1 border-black width-300 pa-4">
-        <div class="d-flex">
-          <atom-text text="画像をアップロード" line-height="line-height-40" />
-          <v-spacer />
-          <atom-button text="挿入" @click="func && func(file.file)" />
-        </div>
-        <atom-input-file v-model="file" />
-      </div>
-    </v-menu>
+    <label v-else-if="icon === 'mdi-image'">
+      <atom-button-icon :title="title" :icon="icon" :disabled="disabled()" />
+      <input type="file" class="d-none" @input="onInput($event)" />
+    </label>
     <atom-button-icon
       v-else
       :title="title"
