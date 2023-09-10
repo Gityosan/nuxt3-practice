@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { validation as v } from '@/assets/validation'
+import { validation as v } from '~/assets/validation'
 const config = useRuntimeConfig()
 const name = ref<string>('')
 const mailaddress = ref<string>('')

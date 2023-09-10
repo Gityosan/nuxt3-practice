@@ -12,7 +12,7 @@ import { TaskList } from '@tiptap/extension-task-list'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import { StarterKit } from '@tiptap/starter-kit'
 import { DOMSerializer, DOMParser, Mark } from 'prosemirror-model'
-import Iframe from '@@/assets/iframe'
+import Iframe from '~/assets/iframe'
 const textAlignTypeIcon = ref<string>('mdi-align-horizontal-left')
 const textTypeIcon = ref<string>('mdi-format-paragraph')
 const link = ref<string>('')

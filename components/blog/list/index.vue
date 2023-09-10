@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BlogType, MicroCMSResponseType } from '@/assets/type'
+import { BlogType, MicroCMSResponseType } from '~/assets/type'
 const config = useRuntimeConfig()
 const contents = ref<BlogType[]>([])
 const { data, error } = await baseFetch<MicroCMSResponseType<BlogType[]>>(

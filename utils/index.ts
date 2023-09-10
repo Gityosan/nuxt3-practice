@@ -1,6 +1,6 @@
 import { FetchOptionArgsType, FetchOptionResponseType } from '~/assets/type'
 
-export const options = <T>({
+export const fetchOptions = <T, S = T>({
   query = {},
   method = 'GET',
   headers = {
@@ -11,7 +11,7 @@ export const options = <T>({
   onResponse,
   onResponseError,
   ...args
-}: FetchOptionArgsType<T> = {}): FetchOptionResponseType => {
+}: FetchOptionArgsType<T, S> = {}): FetchOptionResponseType => {
   body = body ? { body } : {}
   query = Object.keys(query).length ? { query } : {}
   return {
@@ -31,13 +31,17 @@ export const options = <T>({
 }
 export const baseFetch = async <T>(
   path: string,
-  option: () => FetchOptionArgsType<T> = () => ({})
+  options: () => FetchOptionArgsType<T> = () => ({})
 ) => {
-  const { lazy, watch } = { lazy: true, watch: [], ...option() }
-  return await useAsyncData(path, () => $fetch<T>(path, options(option())), {
-    lazy,
-    watch
-  })
+  const asyncDataOptions = { lazy: false, ...options() }
+  return await useAsyncData(path, () => $fetch<T>(path, fetchOptions(options())), asyncDataOptions)
+}
+export const baseLazyFetch = <T, S = T>(
+  path: string,
+  options: () => FetchOptionArgsType<T, S> = () => ({})
+) => {
+  const asyncDataOptions = { lazy: true, ...options() }
+  return useAsyncData(path, () => $fetch<T>(path, fetchOptions(options())), asyncDataOptions)
 }
 export const isObject = (v: unknown) => v !== null && typeof v === 'object'
 export const isFile = (v: unknown): v is File => v instanceof File

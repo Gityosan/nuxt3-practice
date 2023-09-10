@@ -32,8 +32,5 @@ export type TodoType = {
 
   editable?: boolean
 }
-export type FetchOptionArgsType<T> = AsyncDataOptions<T> &
-  NitroFetchOptions<'GET' | 'POST' | 'PUT' | 'DELETE'>
-export type FetchOptionResponseType = NitroFetchOptions<
-  'GET' | 'POST' | 'PUT' | 'DELETE'
->
+export type FetchOptionResponseType = NitroFetchOptions<'GET' | 'POST' | 'PUT' | 'DELETE'>
+export type FetchOptionArgsType<T, S = T> = AsyncDataOptions<T, S> & FetchOptionResponseType

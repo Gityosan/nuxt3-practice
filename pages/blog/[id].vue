@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
-import { BlogType } from '@/assets/type'
+import { BlogType } from '~/assets/type'
 const { smAndUp } = useDisplay()
 const config = useRuntimeConfig()
 const { params } = useRoute()
