@@ -12,7 +12,7 @@
 
 1. `npx nuxi init appName`<br>
 
-2. `yarn add -D vuetify vite-plugin-vuetify sass @mdi/font @mdi/js`<br>
+2. `yarn add -D vuetify vite-plugin-vuetify sass @mdi/font`<br>
 
 3. `yarn add -D typescript @typescript-eslint/eslint-plugin @typescript-eslint/parser @nuxtjs/eslint-config-typescript @types/node`<br>
 
@@ -20,7 +20,11 @@
 
 5. `yarn add -D stylelint stylelint-config-prettier stylelint-config-recess-order stylelint-config-standard-scss postcss-html`<br>
 
-6. `npx nuxi@latest devtools enable`<br>
+6. `yarn add -D @nuxtjs/critters gsap nodemailer vue3-google-map`<br>
+
+7. `yarn add -D @tiptap/core @tiptap/extension-color @tiptap/extension-highlight @tiptap/extension-image @tiptap/extension-link @tiptap/extension-task-item @tiptap/extension-task-list @tiptap/extension-text-align @tiptap/extension-text-style @tiptap/extension-typography @tiptap/extension-underline @tiptap/pm @tiptap/starter-kit @tiptap/vue-3`<br>
+
+8. `npx nuxi@latest devtools enable`<br>
 
 # Upgrade commands
 
