@@ -13,7 +13,6 @@ import { EditorContent, useEditor } from '@tiptap/vue-3'
 import { StarterKit } from '@tiptap/starter-kit'
 import { DOMSerializer, DOMParser, Mark } from 'prosemirror-model'
 import Iframe from '@@/assets/iframe'
-const { $reverseSanitize } = useNuxtApp()
 const textAlignTypeIcon = ref<string>('mdi-align-horizontal-left')
 const textTypeIcon = ref<string>('mdi-format-paragraph')
 const link = ref<string>('')
@@ -40,7 +39,7 @@ const resolveDom = (n: Node): Node => {
   } else return n
 }
 const editor = useEditor({
-  content: $reverseSanitize(props.modelValue) || '<p>今日はどんな記事を書きますか？</p>',
+  content: reverseSanitize(props.modelValue) || '<p>今日はどんな記事を書きますか？</p>',
   extensions: [
     StarterKit,
     Underline,
@@ -168,7 +167,7 @@ const editor = useEditor({
 })
 watch(props, (v, c) => {
   if (editor.value?.getHTML() === c.modelValue) return
-  editor.value?.commands.setContent($reverseSanitize(c.modelValue), false)
+  editor.value?.commands.setContent(reverseSanitize(c.modelValue), false)
 })
 onBeforeUnmount(() => {
   editor.value?.destroy()

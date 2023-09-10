@@ -1,68 +1,59 @@
 <script setup lang="ts">
 import { validation as v } from '@/assets/validation'
 import { TodoType, MicroCMSResponseType } from '@/assets/type'
-const { $baseFetch } = useNuxtApp()
 const todo = ref<string>('')
 const todos = ref<TodoType[]>([])
 const config = useRuntimeConfig()
 
 const createTodo = async () => {
-  const { data, error } = await $baseFetch<TodoType>(
+  const { data, error } = await baseFetch<TodoType>(
     config.public.MICROCMS_API_URL + '/todo',
     () => ({
-      lazy: false,
       method: 'POST',
       headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY },
       body: JSON.stringify({ todo: todo.value })
     })
   )
   if (data.value) await readTodo()
-  if (error.value) console.log('microCMS/createTodo/Error', error.value)
+  if (error.value) console.error('microCMS/createTodo/Error', error.value)
 }
 const updateTodo = async (item: TodoType) => {
-  const { data, error } = await $baseFetch<TodoType>(
+  const { data, error } = await baseFetch<TodoType>(
     config.public.MICROCMS_API_URL + '/todo/' + item.id,
     () => ({
-      lazy: false,
       method: 'PATCH',
       headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY },
       body: JSON.stringify({ todo: item.todo })
     })
   )
   if (data.value) await readTodo()
-  if (error.value) console.log('microCMS/updateTodo/Error', error.value)
+  if (error.value) console.error('microCMS/updateTodo/Error', error.value)
 }
 const readTodo = async () => {
-  const { data, error } = await $baseFetch<MicroCMSResponseType<TodoType[]>>(
+  const { data, error } = await baseFetch<MicroCMSResponseType<TodoType[]>>(
     config.public.MICROCMS_API_URL + '/todo',
-    () => ({
-      lazy: false,
-      headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY }
-    })
+    () => ({ headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY } })
   )
   if (data.value?.contents) todos.value = data.value.contents
-  if (error.value) console.log('microCMS/readTodo/Error', error.value)
+  if (error.value) console.error('microCMS/readTodo/Error', error.value)
   todos.value.forEach((v) => (v.editable = false))
 }
 const deleteTodo = async (todo: any) => {
-  const { data, error } = await $baseFetch<TodoType>(
+  const { data, error } = await baseFetch<TodoType>(
     config.public.MICROCMS_API_URL + '/todo/' + todo.id,
     () => ({
-      lazy: false,
       method: 'DELETE',
       headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY }
     })
   )
   if (data.value) await readTodo()
-  if (error.value) console.log('microCMS/deleteTodo/Error', error.value)
+  if (error.value) console.error('microCMS/deleteTodo/Error', error.value)
 }
 await readTodo()
 </script>
 <template>
   <v-card flat outlined class="ma-5 pa-5">
-    <v-card-title class="font-weight-bold text-h5">
-      Todoアプリを作ろう！
-    </v-card-title>
+    <v-card-title class="font-weight-bold text-h5"> Todoアプリを作ろう！ </v-card-title>
     <v-text-field
       v-model.trim.lazy="todo"
       placeholder="新規追加"
@@ -71,11 +62,7 @@ await readTodo()
       class="my-5 px-5"
     >
       <template #append-inner>
-        <v-btn
-          variant="outlined"
-          class="width-100 height-24"
-          @click="createTodo()"
-        >
+        <v-btn variant="outlined" class="width-100 height-24" @click="createTodo()">
           <v-icon>mdi-plus-circle-outline</v-icon>add
         </v-btn>
       </template>
@@ -93,10 +80,7 @@ await readTodo()
           class="letter-spacing-10"
           :style="{ '--v-input-padding-top': '0' }"
         />
-        <p
-          v-else
-          class="font-size-16 line-height-26 mr-1 flex-1 letter-spacing-10"
-        >
+        <p v-else class="font-size-16 line-height-26 mr-1 flex-1 letter-spacing-10">
           {{ i.todo }}
         </p>
         <v-icon

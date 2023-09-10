@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import { validation as v } from '@/assets/validation'
-const { $baseFetch } = useNuxtApp()
 const config = useRuntimeConfig()
 const name = ref<string>('')
 const mailaddress = ref<string>('')
 const subject = ref<string>('')
 const microCMSSubmit = async () => {
-  await $baseFetch(config.public.MICROCMS_API_URL + '/form', () => ({
+  await baseFetch(config.public.MICROCMS_API_URL + '/form', () => ({
     method: 'POST',
     headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY },
     body: JSON.stringify({ name: name.value, subject: subject.value }),
     onResponse: () => alert('送信できました'),
-    onResponseError: ({ response }) =>
-      console.log('microCMSSubmit/Error', response)
+    onResponseError: ({ response }) => console.error('microCMSSubmit/Error', response)
   }))
 }
 const mailSubmit = async () => {
-  await $baseFetch('/api/nodemailer', () => ({
+  await baseFetch('/api/nodemailer', () => ({
     method: 'POST',
     body: JSON.stringify({
       name: name.value,
@@ -24,25 +22,22 @@ const mailSubmit = async () => {
       mailaddress: mailaddress.value
     }),
     onResponse: () => alert('送信できました'),
-    onResponseError: ({ response }) => console.log('mailSubmit/Error', response)
+    onResponseError: ({ response }) => console.error('mailSubmit/Error', response)
   }))
 }
 const googleFormSubmit = async () => {
-  await $baseFetch('/api/googleForm', () => ({
+  await baseFetch('/api/googleForm', () => ({
     method: 'POST',
     body: JSON.stringify({ name: name.value, subject: subject.value }),
     onResponse: () => alert('送信できました'),
-    onResponseError: ({ response }) =>
-      console.log('googleFormSubmit/Error', response)
+    onResponseError: ({ response }) => console.error('googleFormSubmit/Error', response)
   }))
 }
 </script>
 <template>
   <div class="pa-5">
     <v-card flat outlined class="mb-5 pa-5">
-      <v-card-title class="font-weight-bold text-h5">
-        Form機能を実装しよう！
-      </v-card-title>
+      <v-card-title class="font-weight-bold text-h5"> Form機能を実装しよう！ </v-card-title>
       <v-card-title>
         お名前
         <v-text-field
@@ -72,15 +67,8 @@ const googleFormSubmit = async () => {
       </v-card-title>
     </v-card>
     <v-card flat outlined class="mb-5 pa-5">
-      <v-card-title class="font-weight-bold text-h5">
-        １：Microcmsに送信しよう！
-      </v-card-title>
-      <v-btn
-        color="primary"
-        width="-webkit-fill-available"
-        class="mx-5"
-        @click="microCMSSubmit()"
-      >
+      <v-card-title class="font-weight-bold text-h5"> １：Microcmsに送信しよう！ </v-card-title>
+      <v-btn color="primary" width="-webkit-fill-available" class="mx-5" @click="microCMSSubmit()">
         <v-icon>mdi-email-fast-outline</v-icon>送信
       </v-btn>
     </v-card>
@@ -99,9 +87,7 @@ const googleFormSubmit = async () => {
       </v-btn>
     </v-card>
     <v-card flat outlined class="mb-5 pa-5">
-      <v-card-title class="font-weight-bold text-h5">
-        ３：Google Formに送信しよう！
-      </v-card-title>
+      <v-card-title class="font-weight-bold text-h5"> ３：Google Formに送信しよう！ </v-card-title>
       <v-btn
         color="primary"
         width="-webkit-fill-available"
