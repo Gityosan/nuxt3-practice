@@ -6,11 +6,12 @@ const config = useRuntimeConfig()
 const { params } = useRoute()
 const content = ref<BlogType>({} as BlogType)
 const { data, error } = await baseFetch<BlogType>(
-  config.public.MICROCMS_API_URL + '/blog/' + params.id,
+  `${config.public.MICROCMS_API_URL}/blog/${params.id}`,
   () => ({ headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY } })
 )
 if (data.value) content.value = data.value
 if (error.value) console.error('microCMS/getBlog/Error', error.value)
+useHead({ title: data.value?.title || '' })
 </script>
 <template>
   <div class="frame">
