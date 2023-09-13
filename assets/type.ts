@@ -25,12 +25,10 @@ export type BlogType = {
 export type TodoType = {
   id: string
   todo: string
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-  revisedAt: string
-
-  editable?: boolean
+  createdAt?: string
+  updatedAt?: string
+  publishedAt?: string
+  revisedAt?: string
 }
 export type FetchOptionResponseType = NitroFetchOptions<'GET' | 'POST' | 'PUT' | 'DELETE'>
 export type FetchOptionArgsType<T, S = T> = AsyncDataOptions<T, S> & FetchOptionResponseType

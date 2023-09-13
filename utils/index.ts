@@ -34,14 +34,22 @@ export const baseFetch = async <T>(
   options: () => FetchOptionArgsType<T> = () => ({})
 ) => {
   const asyncDataOptions = { lazy: false, ...options() }
-  return await useAsyncData(path, () => $fetch<T>(path, fetchOptions(options())), asyncDataOptions)
+  return await useAsyncData(
+    fetchOptions(options()).method + path,
+    () => $fetch<T>(path, fetchOptions(options())),
+    asyncDataOptions
+  )
 }
 export const baseLazyFetch = <T, S = T>(
   path: string,
   options: () => FetchOptionArgsType<T, S> = () => ({})
 ) => {
   const asyncDataOptions = { lazy: true, ...options() }
-  return useAsyncData(path, () => $fetch<T>(path, fetchOptions(options())), asyncDataOptions)
+  return useAsyncData(
+    fetchOptions(options()).method + path,
+    () => $fetch<T>(path, fetchOptions(options())),
+    asyncDataOptions
+  )
 }
 export const isObject = (v: unknown) => v !== null && typeof v === 'object'
 export const isFile = (v: unknown): v is File => v instanceof File
