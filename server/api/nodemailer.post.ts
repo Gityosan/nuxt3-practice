@@ -26,17 +26,16 @@ export default defineEventHandler(async (event) => {
     to: body.mailaddress, // 送信先メールアドレス
     subject: body.subject,
     text: body.name + `様\nお問い合せありがとうございます。`,
-    html:
-      '<h3>' + body.name + `様</h3>\n<p>お問い合せありがとうございます。</p>`
+    html: '<h3>' + body.name + `様</h3>\n<p>お問い合せありがとうございます。</p>`
   }
 
   // メールの送信
   try {
     const transport = nodemailer.createTransport(options)
     const result = await transport.sendMail(mail)
-    console.log(result)
+    console.debug(result)
     return result
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 })

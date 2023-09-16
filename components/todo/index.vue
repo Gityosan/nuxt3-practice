@@ -52,7 +52,6 @@ const {
   () => ({
     headers: { 'X-MICROCMS-API-KEY': config.public.MICROCMS_API_KEY },
     transform: (todos) => {
-      console.log('transform')
       if (Array.isArray(todos.contents)) todos.contents.forEach((v) => (v.edited = false))
       return todos.contents || []
     }

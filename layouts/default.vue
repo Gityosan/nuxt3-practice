@@ -26,19 +26,10 @@ const pages = [
 ]
 </script>
 <template>
-  <v-layout class="bg-grey-lighten-4">
-    <v-app-bar
-      flat
-      density="compact"
-      style="border-bottom: 1px solid rgb(0 0 0 / 12%)"
-    >
-      <v-app-bar-nav-icon
-        v-if="xs"
-        @click.stop="drawer = !drawer"
-      ></v-app-bar-nav-icon>
-      <v-app-bar-title class="font-weight-bold text-h5">
-        Nuxt3学習用サイト
-      </v-app-bar-title>
+  <v-layout class="bg-grey-lighten-5">
+    <v-app-bar flat density="compact" style="border-bottom: 1px solid rgb(0 0 0 / 12%)">
+      <v-app-bar-nav-icon v-if="xs" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-title class="font-weight-bold text-h5"> Nuxt3学習用サイト </v-app-bar-title>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -63,7 +54,7 @@ const pages = [
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-main :style="{minHeight:'100dvh'}">
+    <v-main :style="{ minHeight: '100dvh' }">
       <NuxtPage />
     </v-main>
   </v-layout>
