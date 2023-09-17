@@ -2,6 +2,8 @@
 
 ## Nuxt3 の開発勉強用リポジトリです。
 
+- node v20.6.1を使用しています。
+
 ## Getting Started
 
 1. `yarn install`
