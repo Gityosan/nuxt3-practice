@@ -48,5 +48,8 @@
     "vite-plugin-vuetify": "^1.0.2",
     "vue3-google-map": "^0.17.1",
     "vuetify": "^3.3.16"
+  },
+  "dependencies": {
+    "@nuxt/image": "^1.0.0-rc.2"
   }
 }

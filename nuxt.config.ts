@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxtjs/critters',
+    '@nuxt/image',
     (options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         if (config.plugins) config.plugins.push(vuetify())
