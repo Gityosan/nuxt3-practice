@@ -38,7 +38,7 @@ const imageUrl = computed(() => {
     :to="`/blog/${content.id}`"
     class="text-decoration-none my-5 v-col-12 v-col-sm-6 v-col-md-4 blog"
   >
-    <v-img :src="imageUrl" class="blog-thumbnail" />
+    <NuxtImg preload format="webp" fit="contain" :src="imageUrl" class="blog-thumbnail" />
     <div class="d-flex mb-4" style="gap: 0 12px">
       <p class="blog-meta">
         {{ new Date(content.createdAt).toLocaleDateString().split('/').join('.') }}
@@ -51,6 +51,7 @@ const imageUrl = computed(() => {
 <style lang="scss" scoped>
 .blog {
   &-thumbnail {
+    width: 100%;
     border-radius: 8px;
     margin-bottom: 32px;
   }
